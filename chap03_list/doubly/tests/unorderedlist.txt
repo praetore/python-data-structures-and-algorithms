@@ -1,0 +1,55 @@
+Preparing tests
+>>> from chap03_list.UnorderedList import UnorderedList
+
+Adding to list
+>>> uol = UnorderedList()
+>>> uol.add(85)
+>>> uol.add(26)
+>>> uol.add(74)
+>>> uol.add(66)
+>>> uol.search(66)
+True
+>>> uol.last()
+85
+
+Checking size after adding
+>>> uol.size()
+4
+
+Removing from list
+>>> uol.remove(66)
+>>> uol.search(66)
+False
+
+Check size after removing
+>>> uol.size()
+3
+
+Appending to list
+>>> uol = UnorderedList()
+>>> uol.append(85)
+>>> uol.append(66)
+>>> uol.append(45)
+>>> uol.append(88)
+
+Popping from list
+>>> uol.last()
+88
+>>> uol.pop()
+88
+
+Inserting in list position
+>>> uol = UnorderedList()
+>>> uol.insert(0, 55)
+>>> uol.insert(0, 77)
+>>> uol.insert(0, 44)
+>>> uol.insert(1, 78)
+>>> uol.index(55)
+3
+>>> uol.size()
+4
+>>> uol.insert(55, 79)
+>>> uol.size()
+5
+>>> uol.index(79)
+4

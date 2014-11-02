@@ -1,0 +1,56 @@
+Preparing tests
+>>> from chap03_list.OrderedList import OrderedList
+
+Adding to list
+>>> ol = OrderedList()
+>>> ol.add(17)
+>>> ol.add(33)
+>>> ol.add(11)
+>>> ol.add(25)
+>>> ol.index(17)
+1
+>>> ol.index(33)
+3
+>>> ol.index(11)
+0
+>>> ol.index(25)
+2
+
+Check size after adding
+>>> ol.size()
+4
+
+Searching item in list
+>>> ol.search(17)
+True
+
+Removing from list
+>>> ol = OrderedList()
+>>> ol.add(17)
+>>> ol.add(33)
+>>> ol.add(11)
+>>> ol.add(25)
+>>> ol.remove(11)
+>>> ol.remove(33)
+>>> ol.index(25)
+1
+>>> ol.index(17)
+0
+>>> ol.remove(636)
+
+Check size after removal
+>>> ol.size()
+2
+
+Popping item in list
+>>> ol = OrderedList()
+>>> ol.add(17)
+>>> ol.add(33)
+>>> ol.add(11)
+>>> ol.add(25)
+>>> ol.pop()
+33
+>>> ol.pop(1)
+17
+>>> ol.pop(1)
+25

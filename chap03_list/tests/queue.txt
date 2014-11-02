@@ -1,0 +1,21 @@
+Preparing tests
+>>> from chap03_list.ds.Queue import Queue
+
+Adding to queue
+>>> q = Queue()
+>>> q.enqueue(14)
+>>> q.enqueue(22)
+>>> q.enqueue(56)
+>>> q.enqueue(44)
+
+Check size after queueing
+>>> len(q)
+4
+
+Dequeueing operations
+>>> q.dequeue()
+14
+
+Check size after dequeueing
+>>> len(q)
+3
