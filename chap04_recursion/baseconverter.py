@@ -1,13 +1,13 @@
 __author__ = 'darryl'
 
 
-def convert_to_base(num, base, _res=list()):
+def convert_to_base(num, base):
+    convertString = "0123456789ABCDEF"
     if num < base:
-        _res.insert(0, str(1))
-        return "".join(_res)
+        return convertString[num]
     else:
-        _res.append(str(round(num % base)))
-        return convert_to_base(num / base, base, _res)
+        return convert_to_base(num // base, base) + convertString[num % base]
+
 
 if __name__ == '__main__':
-    print(convert_to_base(10, 2))
+    print(convert_to_base(1453, 2))

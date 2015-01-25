@@ -30,7 +30,6 @@ def is_prime(number):
 
 def factorize_primes(number, div=2, primes=list(), initialized=True):
     if initialized and len(primes):
-        # print("On start, list contains", factors)
         primes = []
     if number <= 1:
         if len(primes):
@@ -46,10 +45,7 @@ def factorize_primes(number, div=2, primes=list(), initialized=True):
     if is_prime(div):
         while not number % div:
             primes.append(div)
-            # print('Adding %d to list' % div)
             number //= div
-            # print('Div is now %d' % number)
-            # print('List now contains', factors)
     return factorize_primes(number, div + 1, primes, initialized=False)
 
 
