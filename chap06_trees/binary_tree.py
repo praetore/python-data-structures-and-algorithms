@@ -5,7 +5,7 @@ __author__ = 'darryl'
 
 
 class BinaryNode:
-    def __init__(self, value, right=None, left=None):
+    def __init__(self, value=None, right=None, left=None):
         self.right = right
         self.left = left
         self.value = value
@@ -69,6 +69,17 @@ class BinaryTree:
                 yield n
             n += 1
 
+    def __len__(self):
+        res = 0
+        n = self.min()
+        if n is None:
+            return res
+        while n <= self.max():
+            if n in self or n == self.max() or n == self.min():
+                res += 1
+            n += 1
+        return res
+
     def max(self):
         node = self.head
         if node:
@@ -89,27 +100,57 @@ class BinaryTree:
         else:
             return None
 
+    def mid(self):
+        mid = len(self) // 2
+        n = self.min()
+        res = self.min()
+        while n < mid:
+            if n in self:
+                res = n
+            n += 1
+        return res
+
+    def reorder(self):
+        if self.head and self.head.value != self.mid():
+            node = self._insert_list([i for i in self])
+            self.head = node
+
+    def _insert_list(self, nums, node=BinaryNode()):
+        idx = (len(nums)-1) // 2
+        current = nums[idx]
+        if node.value:
+            node.add(current)
+        else:
+            node = BinaryNode(current)
+        low = nums[:idx - 1]
+        if len(low):
+            self._insert_list(low, node)
+        high = nums[idx + 1:]
+        if len(high):
+            self._insert_list(high, node)
+        return node
+
     def insert(self, value):
         if self.head is None:
             self.head = BinaryNode(value)
         else:
             self.head.add(value)
+            self.reorder()
 
     def remove(self, item):
         if self.head and item in self:
             self.head = self.remove_from_parent(self.head, item)
+        self.reorder()
 
     def remove_from_parent(self, head, item):
         if head is None:
             return None
-
         if item == head.value:
             return head.remove()
         elif item < head.value:
             head.left = self.remove_from_parent(head.left, item)
         else:
             head.right = self.remove_from_parent(head.right, item)
-
         return head
 
 
@@ -118,9 +159,10 @@ class BinaryTreeTest(unittest.TestCase):
         bt = BinaryTree()
         for i in range(20, 100):
             bt.insert(i)
+            self.assertTrue(i in bt, i)
         expected = [i for i in range(20, 100)]
         found = [i for i in bt]
-        self.assertEqual(found, expected)
+        self.assertEqual(found, expected, len(found))
         self.assertFalse(19 in bt)
         self.assertFalse(101 in bt)
 
@@ -135,4 +177,37 @@ class BinaryTreeTest(unittest.TestCase):
 
         found = [i for i in bt]
         expected = []
-        self.assertEqual(found, expected)
+        self.assertEqual(found, expected, len(found))
+
+    def testLength(self):
+        bt = BinaryTree()
+        for i in range(100):
+            bt.insert(i)
+        found = len(bt)
+        expected = 100
+        self.assertEqual(found, expected, found)
+
+    def testMid(self):
+        bt = BinaryTree()
+        for i in range(100):
+            bt.insert(i)
+        found = bt.mid()
+        expected = 49
+        self.assertEqual(found, bt.head.value, found)
+        self.assertEqual(found, expected, found)
+
+    def testMin(self):
+        bt = BinaryTree()
+        for i in range(100):
+            bt.insert(i)
+        found = bt.min()
+        expected = 0
+        self.assertEqual(found, expected, found)
+
+    def testMax(self):
+        bt = BinaryTree()
+        for i in range(100):
+            bt.insert(i)
+        found = bt.max()
+        expected = 99
+        self.assertEqual(found, expected, found)
