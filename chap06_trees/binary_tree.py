@@ -110,37 +110,15 @@ class BinaryTree:
             n += 1
         return res
 
-    def reorder(self):
-        if self.head and self.head.value != self.mid():
-            node = self._insert_list([i for i in self])
-            self.head = node
-
-    def _insert_list(self, nums, node=BinaryNode()):
-        idx = (len(nums)-1) // 2
-        current = nums[idx]
-        if node.value:
-            node.add(current)
-        else:
-            node = BinaryNode(current)
-        low = nums[:idx - 1]
-        if len(low):
-            self._insert_list(low, node)
-        high = nums[idx + 1:]
-        if len(high):
-            self._insert_list(high, node)
-        return node
-
     def insert(self, value):
         if self.head is None:
             self.head = BinaryNode(value)
         else:
             self.head.add(value)
-            self.reorder()
 
     def remove(self, item):
         if self.head and item in self:
             self.head = self.remove_from_parent(self.head, item)
-        self.reorder()
 
     def remove_from_parent(self, head, item):
         if head is None:
@@ -193,7 +171,6 @@ class BinaryTreeTest(unittest.TestCase):
             bt.insert(i)
         found = bt.mid()
         expected = 49
-        self.assertEqual(found, bt.head.value, found)
         self.assertEqual(found, expected, found)
 
     def testMin(self):
